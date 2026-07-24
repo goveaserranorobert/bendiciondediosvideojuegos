@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="es-EC">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         METADATOS SEO
+         ============================================================ -->
+    <title>La Bendición de Dios | Consolas y Videojuegos en Ecuador</title>
+    <meta name="description" content="Compra consolas usadas certificadas y alquila videojuegos en Ecuador. Precios justos, garantía real y atención rápida por WhatsApp.">
+    <meta name="keywords" content="consolas usadas Ecuador, alquiler de videojuegos Ecuador, comprar consola de segunda mano, electrónica usada Ecuador, videojuegos usados Ecuador">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="La Bendición de Dios">
+    <link rel="canonical" href="https://www.labendiciondedios.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="La Bendición de Dios">
+    <meta property="og:title" content="La Bendición de Dios | Consolas y Videojuegos en Ecuador">
+    <meta property="og:description" content="Compra consolas usadas certificadas y alquila videojuegos en Ecuador. Precios justos, garantía real y atención rápida por WhatsApp.">
+    <meta property="og:url" content="https://www.labendiciondedios.com/">
+    <meta property="og:image" content="https://www.labendiciondedios.com/assets/og-cover.webp">
+    <meta property="og:locale" content="es_EC">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="La Bendición de Dios | Consolas y Videojuegos en Ecuador">
+    <meta name="twitter:description" content="Compra consolas usadas certificadas y alquila videojuegos en Ecuador con garantía real.">
+    <meta name="twitter:image" content="https://www.labendiciondedios.com/assets/og-cover.webp">
+
+    <!-- Comentado hasta subir el favicon real a la carpeta /assets/ -->
+    <!-- <link rel="icon" type="image/png" href="assets/favicon.png"> -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ============================================================
+         SCHEMA JSON-LD (ProfessionalService + NAP)
+         Reemplazar streetAddress, telephone y coordenadas reales
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "La Bendición de Dios",
+      "image": "https://www.labendiciondedios.com/assets/og-cover.webp",
+      "url": "https://www.labendiciondedios.com/",
+      "telephone": "+593-98-037-3345",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Completar dirección exacta",
+        "addressLocality": "Completar ciudad",
+        "addressCountry": "EC"
+      },
+      "areaServed": "EC",
+      "sameAs": [
+        "https://www.instagram.com/bendicion_de_dios_ecu"
+      ],
+      "description": "Venta de consolas usadas certificadas y alquiler de videojuegos en Ecuador, con garantía y precios accesibles para jóvenes gamers.",
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Consolas usadas certificadas" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Alquiler de videojuegos" } }
+      ]
+    }
+    </script>
+
+    <style>
+        /* Evita el scroll horizontal no deseado mientras las tarjetas
+           entran animadas desde fuera del viewport (scroll-reveal) */
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Fondo animado: gradiente radial que se desplaza en bucle infinito.
+           Se anima con transform (no background-position) para que el navegador
+           lo mueva a la GPU (compositing) y no dispare repintados/reflows,
+           manteniendo 60fps sin afectar el resto de la página. */
+        .animated-bg {
+            position: absolute;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(30,58,138,0.55) 0%, transparent 45%),
+                radial-gradient(circle at 70% 65%, rgba(6,182,212,0.22) 0%, transparent 40%),
+                radial-gradient(circle at 45% 80%, rgba(3,7,18,1) 0%, transparent 60%),
+                #030712;
+            animation: floatGradient 22s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        @keyframes floatGradient {
+            0%   { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+            33%  { transform: translate(-4%, 4%) rotate(4deg) scale(1.05); }
+            66%  { transform: translate(4%, -3%) rotate(-4deg) scale(1.05); }
+            100% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .animated-bg { animation: none; }
+        }
+
+        /* Acordeón FAQ */
+        .accordion-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease;
+        }
+        .accordion-panel.is-open { grid-template-rows: 1fr; }
+        .accordion-panel > div { overflow: hidden; }
+
+        /* Spinner de envío del formulario */
+        .btn-loading { pointer-events: none; color: transparent !important; position: relative; }
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid rgba(255,255,255,0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .skeleton {
+            position: relative;
+            overflow: hidden;
+            background: #111827;
+            border-radius: 0.75rem;
+        }
+        .skeleton::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            transform: translateX(-100%);
+            animation: skeleton-sweep 1.4s ease-in-out infinite;
+        }
+        @keyframes skeleton-sweep { to { transform: translateX(100%); } }
+
+        /* ---------- Ticker / Marquee infinito (banda de beneficios) ---------- */
+        .marquee-band {
+            background: #000000;
+            overflow: hidden;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .marquee-band__track {
+            display: flex;
+            width: max-content;
+            animation: marqueeScroll 28s linear infinite;
+        }
+
+        .marquee-band__group {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding-right: 2rem;
+            font-family: "Inter", sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: #FFFFFF;
+        }
+
+        .marquee-band__sep {
+            color: #FF5722;
+            margin: 0 0.85rem;
+            font-weight: 800;
+        }
+
+        .marquee-band:hover .marquee-band__track {
+            animation-play-state: paused;
+        }
+
+        @keyframes marqueeScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-band__track { animation: none; }
+        }
+
+        /* ---------- Tarjetas de categoría (Servicios / Catálogo) ---------- */
+        .category-card {
+            position: relative;
+            background: rgba(17, 24, 39, 0.6); /* gray-900/60, mismo glassmorphism del resto del sitio */
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1.25rem 1.25rem 2rem;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            border-color: #FF5722;
+            box-shadow: 0 10px 28px rgba(255, 87, 34, 0.3);
+        }
+
+        /* Contenedor "ventana": recorta el zoom de la imagen sin romper la tarjeta */
+        .category-card__image-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            aspect-ratio: 3 / 2;
+            margin-bottom: 1.25rem;
+        }
+
+        .category-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover .category-card__image {
+            transform: scale(1.06);
+        }
+
+        /* Overlay oscuro sobre la imagen — contraste AAA para el texto blanco */
+        .category-card__image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(3,7,18,0.15) 0%, rgba(3,7,18,0.55) 100%);
+            pointer-events: none;
+        }
+
+        .category-card__title {
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card__text {
+            color: #9CA3AF; /* gray-400, coherente con el resto de la web */
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .category-card__btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: none;
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: #FF5722;
+            transition: all 0.3s ease;
+        }
+
+        .category-card__btn:hover {
+            background: #ff6a3d;
+            box-shadow: 0 0 20px rgba(255, 87, 34, 0.7);
+            transform: scale(1.04);
+        }
+
+        /* ---------- Estadísticas en mini-tarjetas (Quiénes Somos) ---------- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0.75rem;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: #00D2FF;
+        }
+
+        .stat-card__number {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.25rem, 4vw, 1.75rem);
+            color: #00D2FF;
+            margin-bottom: 0.35rem;
+            line-height: 1.1;
+        }
+
+        .stat-card__label {
+            display: block;
+            font-size: 0.75rem;
+            color: #D1D5DB;
+            line-height: 1.3;
+        }
+
+        /* ---------- Contenedor de video (Quiénes Somos) ---------- */
+        .about-video-frame {
+            position: relative;
+            border-radius: 12px;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.75rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+        }
+
+        .about-video-frame__video {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #0B0F19; /* respaldo visible mientras carga el video */
+        }
+
+        /* ---------- Badge estilo Google Maps (Opiniones) ---------- */
+        .google-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 999px;
+            padding: 0.55rem 1.1rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-family: "Inter", sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .google-badge__score {
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+
+        .google-badge__stars {
+            color: #FFD700;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .google-badge__label {
+            color: #9CA3AF;
+        }
+
+        /* ============================================================
+           SERVICIOS — Rediseño Full Width Edge-to-Edge
+           Mismo criterio que #opiniones: sobrescribe max-w-6xl / mx-auto
+           gracias a la mayor especificidad del selector #servicios.
+           No requiere tocar el HTML existente.
+           ============================================================ */
+
+        #servicios {
+            width: 100%;
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        /* El "Lo que hacemos" y el título siguen centrados y legibles */
+        #servicios > .text-center {
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* El grid de tarjetas ahora sí ocupa todo el ancho disponible;
+           grid-cols-4 ya reparte el espacio en 4 partes iguales, solo
+           le faltaba espacio libre para usar. */
+        #servicios .grid {
+            max-width: 100%;
+        }
+
+        /* ============================================================
+           OPINIONES — Rediseño Full Width Edge-to-Edge
+           Sobrescribe las utilidades Tailwind (max-w-6xl / mx-auto / px-6)
+           gracias a la mayor especificidad del selector #opiniones.
+           No requiere tocar el HTML existente.
+           ============================================================ */
+
+        #opiniones {
+            width: 100%;
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        /* El badge de Google y el título siguen centrados y legibles,
+           se limita su ancho por separado para que no se estiren de borde a borde */
+        #opiniones > .text-center {
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ---------- Grid de tarjetas: ahora ocupa TODO el ancho disponible ---------- */
+        .testimonial-track {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.75rem;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Desktop: 4 tarjetas ocupando todo el ancho del contenedor (coincide con el número real de reseñas) */
+        @media (min-width: 1024px) {
+            .testimonial-track {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        /* Tablet: 2 columnas, sin scroll horizontal ya que caben bien */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .testimonial-track {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        /* ---------- Tarjetas: más grandes, protagonismo a la foto ---------- */
+        .testimonial-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 210, 255, 0.5);
+            box-shadow: 0 12px 32px rgba(0, 210, 255, 0.18);
+        }
+
+        /* Foto del cliente: mucho más grande y con object-fit: cover */
+        .testimonial-card__avatar {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            object-fit: cover;
+            display: block;
+            margin-bottom: 1.25rem;
+            transition: transform 0.4s ease;
+        }
+
+        /* Zoom sutil en la foto al hacer hover en la tarjeta */
+        .testimonial-card:hover .testimonial-card__avatar {
+            transform: scale(1.05);
+        }
+
+        .testimonial-card__stars {
+            color: #FFD700;
+            letter-spacing: 2px;
+            font-size: 0.95rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .testimonial-card__text {
+            color: #D1D5DB;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 1.25rem;
+        }
+
+        .testimonial-card__author {
+            font-family: "Inter", sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #FFFFFF;
+            opacity: 0.85;
+        }
+
+        /* ---------- Móvil: scroll horizontal nativo con scroll-snap ---------- */
+        @media (max-width: 767px) {
+            .testimonial-track {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 1.1rem;
+                padding-bottom: 0.5rem;
+                margin: 0 -20px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .testimonial-track .testimonial-card {
+                flex: 0 0 85%;
+                scroll-snap-align: center;
+            }
+
+            .testimonial-card__avatar {
+                height: 240px;
+            }
+        }
+
+        /* ---------- FAQ — Carrusel infinito de ancho completo ---------- */
+        .faq-marquee {
+            width: 100%;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .faq-marquee__track {
+            display: flex;
+            width: max-content;
+            gap: 24px;
+            padding: 0 24px;
+            animation: faqMarquee 40s linear infinite;
+        }
+
+        .faq-marquee:hover .faq-marquee__track {
+            animation-play-state: paused;
+        }
+
+        @keyframes faqMarquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .faq-marquee__track {
+                animation: none;
+            }
+        }
+
+        .faq-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1.75rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            flex-shrink: 0;
+            width: 360px;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .faq-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 210, 255, 0.5);
+            box-shadow: 0 8px 22px rgba(0, 210, 255, 0.15);
+        }
+
+        .faq-card__title {
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .faq-card__text {
+            color: #D1D5DB;
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+
+        .faq-more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #00D2FF;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            border-radius: 999px;
+            transition: all 0.3s ease;
+        }
+
+        .faq-more-link:hover {
+            background: rgba(0, 210, 255, 0.1);
+            box-shadow: 0 0 18px rgba(0, 210, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* ---------- Scroll Reveal (tarjetas de Opiniones) ---------- */
+        .reveal-left,
+        .reveal-right {
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal-left {
+            transform: translateX(-60px);
+        }
+
+        .reveal-right {
+            transform: translateX(60px);
+        }
+
+        .reveal-left.reveal-active,
+        .reveal-right.reveal-active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Efecto cascada: cada tarjeta entra un poco después que la anterior */
+        .testimonial-track .reveal-left:nth-child(1)  { transition-delay: 0s; }
+        .testimonial-track .reveal-left:nth-child(2)  { transition-delay: 0.15s; }
+        .testimonial-track .reveal-right:nth-child(3) { transition-delay: 0.3s; }
+        .testimonial-track .reveal-right:nth-child(4) { transition-delay: 0.45s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-left,
+            .reveal-right {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+
+        /* ---------- Blog / Noticias y Tendencias Tech ---------- */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 900px) {
+            .blog-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .blog-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1rem 1.25rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF5722;
+            box-shadow: 0 10px 28px rgba(255, 87, 34, 0.25);
+        }
+
+        .blog-card__image-wrap {
+            overflow: hidden;
+            border-radius: 0.75rem;
+            aspect-ratio: 3 / 2;
+            margin-bottom: 1rem;
+        }
+
+        .blog-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-card__image {
+            transform: scale(1.06);
+        }
+
+        .blog-card__meta {
+            font-family: "Inter", sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #00D2FF;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card__title {
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1.05rem;
+            line-height: 1.35;
+            margin-bottom: 0.6rem;
+        }
+
+        .blog-card__text {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .blog-card__link {
+            color: #FF5722;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            width: fit-content;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .blog-card__link:hover {
+            color: #ff7a4d;
+            transform: translateX(3px);
+        }
+
+        /* ---------- Dropdown "Catálogo" del navbar ---------- */
+        .nav-dropdown__panel {
+            background: rgba(11, 15, 23, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .nav-dropdown__item {
+            display: block;
+            padding: 0.65rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        .nav-dropdown__item:hover {
+            background: rgba(0, 210, 255, 0.1);
+            color: #00D2FF;
+        }
+
+        /* ---------- Banner promocional (full-bleed, borde a borde) ---------- */
+        .promo-banner-section {
+            width: 100%;
+        }
+
+        .promo-banner {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .promo-banner__img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .promo-banner:hover .promo-banner__img {
+            transform: scale(1.02);
+        }
+
+        /* ---------- Footer nuevo (versión naranja de alto contraste) ---------- */
+        .site-footer-new {
+            background: #FF5722;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: #F5F5F5;
+        }
+
+        .site-footer-new__top {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 900px) {
+            .site-footer-new__top {
+                grid-template-columns: 1.4fr 1fr 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* La información fluye directo sobre el naranja, sin cajas */
+        .footer-col {
+            background: none;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+        }
+
+        .footer-logo {
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #FFFFFF;
+            margin-bottom: 0.85rem;
+        }
+
+        .footer-logo span {
+            color: #FFFFFF;
+        }
+
+        .footer-brand-text {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #F5F5F5;
+            max-width: 32ch;
+        }
+
+        /* Título sin barrita de acento, blanco puro y en negrita */
+        .footer-col__title {
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 1.1rem;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .footer-links a {
+            color: #F5F5F5;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.25s ease;
+        }
+
+        .footer-links a:hover {
+            color: #FFD700;
+        }
+
+        .footer-contact {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .footer-contact__icon {
+            width: 1rem;
+            height: 1rem;
+            flex-shrink: 0;
+            color: #FFFFFF;
+        }
+
+        .footer-contact__link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #F5F5F5;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.25s ease;
+        }
+
+        .footer-contact__link:hover {
+            color: #FFD700;
+        }
+
+        .footer-contact__text {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.875rem;
+            line-height: 1.4;
+            color: #F5F5F5;
+        }
+
+        .footer-social {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        /* Botones circulares blancos translúcidos sobre el naranja */
+        .footer-social__btn {
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social__btn svg {
+            width: 1.15rem;
+            height: 1.15rem;
+        }
+
+        .footer-social__btn:hover,
+        .footer-social__btn--whatsapp:hover {
+            background: #FFFFFF;
+            border-color: #FFFFFF;
+            color: #FF5722;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .site-footer-new__bottom {
+            background: #D84315;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+        }
+
+        .site-footer-new__bottom p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           PROMO FLASH — Venta de oportunidad (equipos usados)
+           Franja destacada justo al inicio del body, antes del header.
+           Se le da padding-top para no quedar tapada por el header fixed.
+           ============================================================ */
+        .promo-flash {
+            background: #0F1420;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 3rem 1.25rem;
+        }
+        @media (min-width: 768px) {
+            .promo-flash { padding: 4rem 2.5rem; }
+        }
+        .promo-flash__inner {
+            max-width: 1152px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255,87,34,0.35);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35), 0 0 40px rgba(255,87,34,0.08);
+        }
+        @media (min-width: 900px) {
+            .promo-flash__inner {
+                grid-template-columns: 1fr 1.1fr;
+                gap: 2.5rem;
+                padding: 2rem;
+            }
+        }
+        .promo-flash__image-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .promo-flash__image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .promo-flash__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255,87,34,0.15);
+            border: 1px solid rgba(255,87,34,0.5);
+            color: #FF7A47;
+            font-weight: 800;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            margin-bottom: 0.9rem;
+        }
+        .promo-flash__title {
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 1.4rem;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+        @media (min-width: 768px) {
+            .promo-flash__title { font-size: 1.75rem; }
+        }
+        .promo-flash__subtitle {
+            color: #D1D5DB;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+        .promo-flash__list {
+            list-style: none;
+            margin: 0 0 1.25rem;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        .promo-flash__list li {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 0.6rem;
+            padding: 0.65rem 0.9rem;
+            font-size: 0.92rem;
+            color: #F3F4F6;
+        }
+        .promo-flash__list li strong {
+            color: #00D2FF;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+        .promo-flash__guarantee {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9CA3AF;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+        .promo-flash__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #FF5722;
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 0.95rem;
+            padding: 0.9rem 1.75rem;
+            border-radius: 999px;
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(255,87,34,0.5);
+            transition: all 0.3s ease;
+        }
+        .promo-flash__cta:hover {
+            background: #ff6a3d;
+            box-shadow: 0 0 30px rgba(255,87,34,0.8);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="text-white font-sans" style="background-color: #1A2130;">
+
+    <!-- Header Profesional (responsivo, con menú hamburguesa en móvil) -->
+    <header id="site-header" class="fixed top-0 inset-x-0 flex justify-between items-center px-6 py-4 md:px-10 md:py-8 z-40 bg-transparent transition-colors duration-300">
+        <div class="text-xl md:text-2xl font-bold">LA BENDICIÓN<span class="text-[#00D2FF]">DE DIOS</span></div>
+
+        <nav class="hidden md:flex items-center gap-10">
+            <a href="#inicio" class="text-base font-bold tracking-wide text-white transition duration-300 hover:text-[#00D2FF] hover:drop-shadow-[0_0_18px_rgba(0,210,255,1)]">Inicio</a>
+
+            <div class="relative group">
+                <a href="#servicios" class="flex items-center gap-1 text-base font-bold tracking-wide text-white transition duration-300 hover:text-[#00D2FF] hover:drop-shadow-[0_0_18px_rgba(0,210,255,1)]">
+                    Catálogo
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-3 h-3 mt-0.5 transition-transform duration-300 group-hover:rotate-180">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                </a>
+
+                <div class="nav-dropdown__menu absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
+                    <div class="nav-dropdown__panel">
+                        <a href="#consolas" class="nav-dropdown__item">Consolas</a>
+                        <a href="#celulares" class="nav-dropdown__item">Celulares</a>
+                        <a href="#televisores" class="nav-dropdown__item">Televisores</a>
+                        <a href="#otros" class="nav-dropdown__item">Otros productos</a>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#preguntas" class="text-base font-bold tracking-wide text-white transition duration-300 hover:text-[#00D2FF] hover:drop-shadow-[0_0_18px_rgba(0,210,255,1)]">Preguntas</a>
+            <a href="#noticias" class="text-base font-bold tracking-wide text-white transition duration-300 hover:text-[#00D2FF] hover:drop-shadow-[0_0_18px_rgba(0,210,255,1)]">Noticias</a>
+        </nav>
+
+        <a href="https://wa.me/593980373345" rel="nofollow" class="hidden md:inline-block bg-[#FF5722] px-6 py-2 rounded-full hover:bg-[#ff6a3d] transition shadow-[0_0_15px_rgba(255,87,34,0.6)] hover:shadow-[0_0_25px_rgba(255,87,34,0.9)]">Escríbenos</a>
+
+        <button id="menu-toggle" class="md:hidden text-white p-2" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </header>
+
+    <!-- Menú móvil desplegable -->
+    <div id="mobile-menu" class="hidden md:hidden fixed top-0 inset-x-0 z-30 bg-gray-950/95 backdrop-blur-md pt-20 pb-8 px-6 flex flex-col items-center gap-5 max-h-screen overflow-y-auto">
+        <a href="#inicio" class="text-lg font-bold text-[#00D2FF] tracking-wide">INICIO</a>
+        <a href="#servicios" class="text-lg font-bold text-[#00D2FF] tracking-wide">CATÁLOGO</a>
+        <div class="flex flex-col items-center gap-3 -mt-2">
+            <a href="#consolas" class="text-sm font-semibold text-white/70 tracking-wide">Consolas</a>
+            <a href="#celulares" class="text-sm font-semibold text-white/70 tracking-wide">Celulares</a>
+            <a href="#televisores" class="text-sm font-semibold text-white/70 tracking-wide">Televisores</a>
+            <a href="#otros" class="text-sm font-semibold text-white/70 tracking-wide">Otros productos</a>
+        </div>
+        <a href="#preguntas" class="text-lg font-bold text-[#00D2FF] tracking-wide">PREGUNTAS</a>
+        <a href="#noticias" class="text-lg font-bold text-[#00D2FF] tracking-wide">NOTICIAS</a>
+        <a href="https://wa.me/593980373345" rel="nofollow" class="w-full text-center bg-[#FF5722] py-3 rounded-full font-semibold hover:bg-[#ff6a3d] transition shadow-[0_0_15px_rgba(255,87,34,0.6)]">Escríbenos</a>
+    </div>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/593980373345" target="_blank" rel="noopener noreferrer"
+       class="fixed bottom-6 right-6 md:top-8 md:right-8 md:bottom-auto z-40 flex items-center gap-2 bg-green-500 text-white pl-3 pr-4 md:pr-5 py-2.5 rounded-full font-semibold text-sm md:text-base
+              shadow-[0_0_15px_rgba(34,197,94,0.7)] hover:shadow-[0_0_30px_rgba(34,197,94,1)]
+              border border-white/40 hover:border-white
+              transition duration-300 hover:scale-105">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5 md:w-6 md:h-6 fill-white drop-shadow-[0_0_6px_rgba(255,255,255,0.9)]">
+            <path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.386.696 4.607 1.897 6.48L4 29l7.72-1.86A11.93 11.93 0 0 0 16.001 27C22.629 27 28 21.627 28 15S22.629 3 16.001 3zm0 21.75c-1.964 0-3.79-.57-5.33-1.55l-.383-.24-4.58 1.1 1.12-4.46-.25-.4A9.7 9.7 0 0 1 5.25 15c0-5.936 4.815-10.75 10.75-10.75S26.75 9.064 26.75 15 21.936 24.75 16.001 24.75zm5.68-8.1c-.31-.155-1.833-.905-2.117-1.008-.283-.104-.49-.155-.696.155-.207.31-.797 1.008-.977 1.215-.18.207-.36.233-.67.078-.31-.155-1.31-.483-2.494-1.54-.922-.822-1.545-1.837-1.726-2.147-.18-.31-.02-.478.136-.632.14-.14.31-.36.465-.54.155-.18.207-.31.31-.516.104-.207.052-.387-.026-.542-.078-.155-.696-1.68-.955-2.3-.252-.605-.508-.523-.696-.533l-.593-.01c-.207 0-.542.078-.826.387-.283.31-1.08 1.056-1.08 2.575 0 1.52 1.106 2.988 1.26 3.194.155.207 2.176 3.32 5.27 4.657.737.318 1.312.508 1.76.65.74.235 1.412.202 1.944.123.593-.088 1.833-.75 2.09-1.474.258-.723.258-1.343.18-1.474-.077-.13-.283-.207-.593-.362z"/>
+        </svg>
+        <span class="drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]">Escríbenos</span>
+    </a>
+
+    <!-- ============================================================
+         HERO — video de fondo con capa de gradiente animado, H1 único
+         ============================================================ -->
+    <main id="inicio" class="min-h-screen flex flex-col items-center justify-center text-center px-6 py-24 md:p-10 relative overflow-hidden">
+
+        <video
+            id="video-fondo"
+            autoplay loop muted playsinline
+            class="absolute inset-0 w-full h-full object-cover z-0"
+            onerror="document.getElementById('video-error').classList.remove('hidden'); document.getElementById('animated-bg').classList.remove('hidden');">
+            <source src="FONDO.mp4" type="video/mp4">
+        </video>
+        <script>
+            // Diagnóstico temporal: muestra en consola por qué falla el video
+            // (quitar este bloque una vez resuelto el problema)
+            document.getElementById('video-fondo').addEventListener('error', (e) => {
+                const video = e.target;
+                console.error('Error de video. Código:', video.error?.code, 'Mensaje:', video.error?.message);
+                console.error('Códigos: 1=abortado 2=red 3=decodificación (códec no soportado) 4=formato/ruta no soportada');
+            });
+        </script>
+
+        <div id="video-error" class="hidden absolute inset-0 z-[3] flex items-center justify-center bg-red-950/40">
+            <p class="text-red-300 text-sm bg-black/70 px-4 py-2 rounded-lg">⚠️ No se encontró el video en esta carpeta. Se usa el gradiente animado como respaldo.</p>
+        </div>
+
+        <div id="animated-bg" class="animated-bg z-[1] hidden"></div>
+        <div class="absolute inset-0 z-[5] bg-black/60"></div>
+
+        <span class="relative z-10 inline-block text-xs font-mono tracking-widest uppercase text-[#00D2FF] bg-[#00D2FF]/10 border border-[#00D2FF]/30 px-4 py-1.5 rounded-full mb-6">
+            Consolas usadas · Ecuador
+        </span>
+
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 md:mb-6 relative z-10 text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)] leading-tight">
+            Consolas usadas certificadas y <br class="hidden sm:block">
+            <span class="text-[#00D2FF] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">alquiler de videojuegos</span>
+        </h1>
+        <p class="text-gray-100 text-sm sm:text-base md:text-xl max-w-xs sm:max-w-md md:max-w-2xl mb-6 md:mb-10 relative z-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            Compra o alquila con la confianza de un equipo que revisa cada consola y cada disco antes de entregarlo. Precio justo, garantía real, sin sorpresas.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 relative z-10">
+            <a href="#servicios" class="bg-[#FF5722] px-7 py-3 rounded-full font-semibold hover:bg-[#ff6a3d] transition shadow-[0_0_15px_rgba(255,87,34,0.6)] hover:shadow-[0_0_25px_rgba(255,87,34,0.9)]">Ver Catálogo</a>
+            <a href="https://wa.me/593980373345" rel="nofollow" class="border border-white/30 bg-white/5 backdrop-blur-md px-7 py-3 rounded-full font-semibold hover:border-[#FF5722] hover:text-[#FF5722] transition">Hablar por WhatsApp</a>
+        </div>
+    </main>
+
+    <!-- ============================================================
+         TICKER — banda de texto animada (marquee infinito, CSS puro)
+         ============================================================ -->
+    <section class="marquee-band" aria-label="Beneficios de La Bendición de Dios">
+        <div class="marquee-band__track">
+            <span class="marquee-band__group">
+                ⚡ MÁS DE 500 CLIENTES SATISFECHOS <span class="marquee-band__sep">•</span> 🚚 ENVÍOS ASEGURADOS A TODO EL PAÍS <span class="marquee-band__sep">•</span> 🛡️ GARANTÍA REAL DE 3 MESES <span class="marquee-band__sep">•</span> 🎮 CONSOLAS TOTALMENTE CERTIFICADAS <span class="marquee-band__sep">•</span>
+                ⚡ MÁS DE 500 CLIENTES SATISFECHOS <span class="marquee-band__sep">•</span> 🚚 ENVÍOS ASEGURADOS A TODO EL PAÍS <span class="marquee-band__sep">•</span> 🛡️ GARANTÍA REAL DE 3 MESES <span class="marquee-band__sep">•</span> 🎮 CONSOLAS TOTALMENTE CERTIFICADAS <span class="marquee-band__sep">•</span>
+            </span>
+            <span class="marquee-band__group" aria-hidden="true">
+                ⚡ MÁS DE 500 CLIENTES SATISFECHOS <span class="marquee-band__sep">•</span> 🚚 ENVÍOS ASEGURADOS A TODO EL PAÍS <span class="marquee-band__sep">•</span> 🛡️ GARANTÍA REAL DE 3 MESES <span class="marquee-band__sep">•</span> 🎮 CONSOLAS TOTALMENTE CERTIFICADAS <span class="marquee-band__sep">•</span>
+                ⚡ MÁS DE 500 CLIENTES SATISFECHOS <span class="marquee-band__sep">•</span> 🚚 ENVÍOS ASEGURADOS A TODO EL PAÍS <span class="marquee-band__sep">•</span> 🛡️ GARANTÍA REAL DE 3 MESES <span class="marquee-band__sep">•</span> 🎮 CONSOLAS TOTALMENTE CERTIFICADAS <span class="marquee-band__sep">•</span>
+            </span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PROMO FLASH — Venta de oportunidad (equipos usados)
+         ============================================================ -->
+    <section class="promo-flash">
+        <div class="promo-flash__inner">
+            <div class="promo-flash__image-wrap">
+                <img src="OFERTA USADOS.jpg" alt="Venta de oportunidad: PlayStation 5, iPhone 13, Smart TV Aiwa 55 pulgadas y PlayStation 4 Slim usados con garantía en Ecuador" width="940" height="795" loading="lazy" decoding="async" class="promo-flash__image">
+            </div>
+            <div>
+                <span class="promo-flash__badge">🔥 Venta de oportunidad</span>
+                <h2 class="promo-flash__title">Equipos Usados Garantizados</h2>
+                <p class="promo-flash__subtitle">¡Aprovecha estos precios increíbles antes de que se agoten! Ponemos a la venta lote de equipos electrónicos en excelente estado, probados y con garantía de funcionamiento.</p>
+
+                <ul class="promo-flash__list">
+                    <li>🎮 PlayStation 5 (1TB - Digital) + Caja <strong>$290</strong></li>
+                    <li>📱 iPhone 13 + Caja <strong>$150</strong></li>
+                    <li>📺 Smart TV Aiwa 55" con Google TV + Caja <strong>$150</strong></li>
+                    <li>🎮 PlayStation 4 Slim + Mandos <strong>$120</strong></li>
+                </ul>
+
+                <p class="promo-flash__guarantee">🛡️ Todos los equipos están 100% funcionales, probados y listos para entrega.</p>
+
+                <a href="https://wa.me/593980373345?text=Hola%2C%20me%20interesa%20la%20promoci%C3%B3n%20de%20equipos%20usados" rel="nofollow" target="_blank" class="promo-flash__cta">
+                    Consultar disponibilidad por WhatsApp →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         QUIÉNES SOMOS
+         ============================================================ -->
+    <section id="nosotros" class="px-6 py-20 md:py-28 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="text-xs font-mono tracking-widest uppercase text-[#00D2FF]">Quiénes somos</span>
+                <h2 class="text-2xl md:text-4xl font-extrabold mt-2 mb-5">Mucho más que una tienda de videojuegos en Ecuador</h2>
+                <p class="text-gray-300 mb-6">En La Bendición de Dios, no solo vendemos hardware; representamos la tranquilidad de jugar sin sorpresas. Nacimos con un propósito claro: transformar el mercado de consolas usadas y tecnología en Ecuador, eliminando la incertidumbre de comprar equipos de segunda mano. Cada consola, pantalla y teléfono en nuestro catálogo pasa por un riguroso laboratorio de pruebas para garantizar que recibes un producto certificado, respaldado por una garantía real de la que sí respondemos. Somos gamers sirviendo a gamers.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <strong class="stat-card__number">+500</strong>
+                        <span class="stat-card__label">equipos entregados</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong class="stat-card__number">30 días</strong>
+                        <span class="stat-card__label">de garantía</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong class="stat-card__number">100%</strong>
+                        <span class="stat-card__label">revisados antes de vender</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -inset-4 bg-[#00D2FF]/20 blur-3xl rounded-full"></div>
+                <div class="about-video-frame">
+                    <video
+                        id="about-video"
+                        class="about-video-frame__video"
+                        data-src="TIENDA.mp4"
+                        muted loop playsinline preload="none"
+                        aria-label="Video del showroom y laboratorio de pruebas de La Bendición de Dios en Ecuador">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SERVICIOS / CATÁLOGO POR CATEGORÍAS
+         ============================================================ -->
+    <section id="servicios" class="px-6 py-20 md:py-28 max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="text-xs font-mono tracking-widest uppercase text-[#00D2FF]">Lo que hacemos</span>
+            <h2 class="text-2xl md:text-4xl font-extrabold mt-2">Catálogo de Equipos y Videojuegos Certificados</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Tarjeta 1 — Consolas de Videojuegos -->
+            <article id="consolas" class="category-card">
+                <div class="category-card__image-wrap">
+                    <img src="IMAGENES PRODUCTOS/PS5.jpg" alt="Consolas de videojuegos usadas certificadas y en alquiler en Ecuador" width="600" height="400" loading="lazy" decoding="async" class="category-card__image">
+                    <div class="category-card__image-overlay"></div>
+                </div>
+                <h3 class="category-card__title">Consolas de Videojuegos</h3>
+                <p class="category-card__text">PlayStation, Xbox y Nintendo revisadas y certificadas, listas para jugar desde el primer día.</p>
+                <a href="#" class="category-card__btn">Ver Catálogo</a>
+            </article>
+
+            <!-- Tarjeta 2 — Televisores Gamer -->
+            <article id="televisores" class="category-card">
+                <div class="category-card__image-wrap">
+                    <img src="IMAGENES PRODUCTOS/TV_PNG.jpg" alt="Televisores y pantallas gamer de alta definición en Ecuador" width="600" height="400" loading="lazy" decoding="async" class="category-card__image">
+                    <div class="category-card__image-overlay"></div>
+                </div>
+                <h3 class="category-card__title">Televisores Gamer</h3>
+                <p class="category-card__text">Pantallas con bajo tiempo de respuesta, ideales para jugar sin lag ni retraso de imagen.</p>
+                <a href="#" class="category-card__btn">Ver Catálogo</a>
+            </article>
+
+            <!-- Tarjeta 3 — Teléfonos Celulares -->
+            <article id="celulares" class="category-card">
+                <div class="category-card__image-wrap">
+                    <img src="IMAGENES PRODUCTOS/TELEFONOS_IPHONE.jpg" alt="Teléfonos celulares inteligentes seminuevos y garantizados" width="600" height="400" loading="lazy" decoding="async" class="category-card__image">
+                    <div class="category-card__image-overlay"></div>
+                </div>
+                <h3 class="category-card__title">Teléfonos Celulares</h3>
+                <p class="category-card__text">Equipos usados certificados, con batería y funcionamiento verificados antes de la venta.</p>
+                <a href="#" class="category-card__btn">Ver Catálogo</a>
+            </article>
+
+            <!-- Tarjeta 4 — Juegos y Accesorios -->
+            <article id="otros" class="category-card">
+                <div class="category-card__image-wrap">
+                    <img src="IMAGENES PRODUCTOS/GTA 6.png" alt="Catálogo de juegos y accesorios originales para consolas" width="600" height="400" loading="lazy" decoding="async" class="category-card__image">
+                    <div class="category-card__image-overlay"></div>
+                </div>
+                <h3 class="category-card__title">Juegos y Accesorios</h3>
+                <p class="category-card__text">Títulos en alquiler, controles, cables y accesorios originales para completar tu setup.</p>
+                <a href="#" class="category-card__btn">Ver Catálogo</a>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         BANNER PROMOCIONAL — full-bleed, de borde a borde
+         ============================================================ -->
+    <section class="promo-banner-section">
+        <a href="https://wa.me/593980373345" rel="nofollow" target="_blank" class="promo-banner" aria-label="Ver catálogo y escribir por WhatsApp">
+            <img src="banner celus.jpg" alt="Promoción de consolas, televisores y celulares certificados en La Bendición de Dios Ecuador" loading="lazy" decoding="async" class="promo-banner__img">
+        </a>
+    </section>
+
+    <!-- ============================================================
+         OPINIONES Y PRUEBA SOCIAL
+         ============================================================ -->
+    <section id="opiniones" class="px-6 py-20 md:py-28 max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-4">
+            <span class="text-xs font-mono tracking-widest uppercase text-[#00D2FF]">Prueba social</span>
+            <h2 class="text-2xl md:text-4xl font-extrabold mt-2">Opiniones de nuestros clientes en Ecuador</h2>
+        </div>
+
+        <div class="flex justify-center mb-12">
+            <div class="google-badge">
+                <span class="google-badge__score">4.9</span>
+                <span class="google-badge__stars" aria-hidden="true">★★★★★</span>
+                <span class="google-badge__label">(+100 Reseñas en Google Maps)</span>
+            </div>
+        </div>
+
+        <div class="testimonial-track">
+            <article class="testimonial-card reveal-left">
+                <img src="fotos opiniones/opinion 1.jpg" alt="Opinión de clienta de La Bendición de Dios sobre la compra de un celular en Ecuador" width="400" height="300" loading="lazy" decoding="async" class="testimonial-card__avatar">
+                <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+                <p class="testimonial-card__text">"Compré un celular seminuevo y llegó impecable, con la batería al 100% tal como me lo prometieron. Se nota que sí revisan los equipos antes de venderlos."</p>
+                <span class="testimonial-card__author">Michelle A.</span>
+            </article>
+
+            <article class="testimonial-card reveal-left">
+                <img src="fotos opiniones/opinion 2.jpg" alt="Opinión de cliente de La Bendición de Dios sobre la compra de un celular en Ecuador" width="400" height="300" loading="lazy" decoding="async" class="testimonial-card__avatar">
+                <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+                <p class="testimonial-card__text">"Estaba dudando de comprar un celular usado, pero la garantía de 3 meses me dio la confianza. Mi teléfono funciona perfecto desde el primer día."</p>
+                <span class="testimonial-card__author">Carlos P.</span>
+            </article>
+
+            <article class="testimonial-card reveal-right">
+                <img src="fotos opiniones/opinion 3.jpg" alt="Opinión de cliente de La Bendición de Dios sobre la compra de un celular en Ecuador" width="400" height="300" loading="lazy" decoding="async" class="testimonial-card__avatar">
+                <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+                <p class="testimonial-card__text">"Excelente atención por WhatsApp, resolvieron todas mis dudas antes de comprar. Mi celular llegó rápido y en las condiciones que me ofrecieron."</p>
+                <span class="testimonial-card__author">Diego F.</span>
+            </article>
+
+            <article class="testimonial-card reveal-right">
+                <img src="fotos opiniones/opinion 4.jpg" alt="Opinión de clienta de La Bendición de Dios sobre la compra de un celular en Ecuador" width="400" height="300" loading="lazy" decoding="async" class="testimonial-card__avatar">
+                <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+                <p class="testimonial-card__text">"Encontré un teléfono seminuevo a mitad de precio comparado con uno nuevo, y la calidad es la misma. Totalmente recomendado."</p>
+                <span class="testimonial-card__author">Camila R.</span>
+            </article>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ
+         ============================================================ -->
+    <section id="preguntas" class="py-20 w-full overflow-hidden">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-center mb-10 px-6">Preguntas frecuentes</h2>
+
+        <div class="faq-marquee">
+            <div class="faq-marquee__track">
+
+                <!-- Grupo 1 (real) -->
+                <div class="faq-card">
+                    <h3 class="faq-card__title">¿Las consolas y teléfonos tienen garantía?</h3>
+                    <p class="faq-card__text">Sí, todos nuestros equipos pasan por revisión técnica y cuentan con garantía escrita de 3 meses en Ecuador.</p>
+                </div>
+                <div class="faq-card">
+                    <h3 class="faq-card__title">¿Cómo funcionan los envíos a todo Ecuador?</h3>
+                    <p class="faq-card__text">Enviamos asegurado a todas las provincias. Coordinamos el despacho directo y te compartimos la guía de rastreo al instante.</p>
+                </div>
+                <div class="faq-card">
+                    <h3 class="faq-card__title">¿Cómo funciona el alquiler de videojuegos?</h3>
+                    <p class="faq-card__text">Eliges la consola o título, defines los días de alquiler y coordinamos la entrega y devolución de forma rápida por WhatsApp.</p>
+                </div>
+                <div class="faq-card">
+                    <h3 class="faq-card__title">¿Los equipos son 100% originales y probados?</h3>
+                    <p class="faq-card__text">Absolutamente. Verificamos batería, lectura de discos, software y sellos antes de poner cualquier producto a la venta.</p>
+                </div>
+
+                <!-- Grupo 2 (duplicado, oculto para lectores de pantalla) -->
+                <div class="faq-card" aria-hidden="true">
+                    <h3 class="faq-card__title">¿Las consolas y teléfonos tienen garantía?</h3>
+                    <p class="faq-card__text">Sí, todos nuestros equipos pasan por revisión técnica y cuentan con garantía escrita de 3 meses en Ecuador.</p>
+                </div>
+                <div class="faq-card" aria-hidden="true">
+                    <h3 class="faq-card__title">¿Cómo funcionan los envíos a todo Ecuador?</h3>
+                    <p class="faq-card__text">Enviamos asegurado a todas las provincias. Coordinamos el despacho directo y te compartimos la guía de rastreo al instante.</p>
+                </div>
+                <div class="faq-card" aria-hidden="true">
+                    <h3 class="faq-card__title">¿Cómo funciona el alquiler de videojuegos?</h3>
+                    <p class="faq-card__text">Eliges la consola o título, defines los días de alquiler y coordinamos la entrega y devolución de forma rápida por WhatsApp.</p>
+                </div>
+                <div class="faq-card" aria-hidden="true">
+                    <h3 class="faq-card__title">¿Los equipos son 100% originales y probados?</h3>
+                    <p class="faq-card__text">Absolutamente. Verificamos batería, lectura de discos, software y sellos antes de poner cualquier producto a la venta.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="text-center mt-10 px-6">
+            <a href="preguntas-frecuentes.html" class="faq-more-link">Ver más preguntas frecuentes →</a>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         NOTICIAS Y TENDENCIAS TECH
+         ============================================================ -->
+    <section id="noticias" class="px-6 py-20 md:py-28 max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="text-xs font-mono tracking-widest uppercase text-[#00D2FF]">Blog y tendencias</span>
+            <h2 class="text-2xl md:text-4xl font-extrabold mt-2">Novedades y Guías Gamer en Ecuador</h2>
+        </div>
+
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-card__image-wrap">
+                    <img src="ARTICULOS DE PRENSA/XBOX.jpg" alt="Guía para comprar consolas usadas certificadas en Ecuador" width="500" height="300" loading="lazy" decoding="async" class="blog-card__image">
+                </div>
+                <span class="blog-card__meta">Tecnología • Julio 2026</span>
+                <h3 class="blog-card__title">Guía 2026: ¿Qué revisar antes de comprar una consola usada?</h3>
+                <p class="blog-card__text">Los puntos clave que todo comprador en Ecuador debería verificar antes de cerrar la compra de un equipo de segunda mano.</p>
+                <a href="#" class="blog-card__link">Leer artículo →</a>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-card__image-wrap">
+                    <img src="ARTICULOS DE PRENSA/PS5 VS.jpg" alt="Comparativa de consolas PlayStation, Xbox y Nintendo en Ecuador" width="500" height="300" loading="lazy" decoding="async" class="blog-card__image">
+                </div>
+                <span class="blog-card__meta">Gaming • Julio 2026</span>
+                <h3 class="blog-card__title">PS5 vs Xbox Series vs Nintendo Switch: ¿cuál te conviene en Ecuador?</h3>
+                <p class="blog-card__text">Analizamos precios, catálogo de juegos y disponibilidad real en el mercado ecuatoriano para ayudarte a decidir.</p>
+                <a href="#" class="blog-card__link">Leer artículo →</a>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-card__image-wrap">
+                    <img src="ARTICULOS DE PRENSA/BATERIA.webp" alt="Tips para cuidar la batería de celulares seminuevos en Ecuador" width="500" height="300" loading="lazy" decoding="async" class="blog-card__image">
+                </div>
+                <span class="blog-card__meta">Celulares • Julio 2026</span>
+                <h3 class="blog-card__title">5 tips para alargar la vida de la batería de tu celular seminuevo</h3>
+                <p class="blog-card__text">Consejos prácticos y sencillos para que tu equipo seminuevo rinda al máximo por más tiempo.</p>
+                <a href="#" class="blog-card__link">Leer artículo →</a>
+            </article>
+        </div>
+
+        <div class="text-center mt-10">
+            <a href="articulos.html" class="faq-more-link">Ver más artículos →</a>
+        </div>
+    </section>
+
+    <footer class="site-footer-new">
+        <div class="site-footer-new__top">
+
+            <div class="footer-col footer-col--brand">
+                <div class="footer-logo">LA BENDICIÓN<span>DE DIOS</span></div>
+                <p class="footer-brand-text">Venta y alquiler de consolas, pantallas y teléfonos celulares seminuevos certificados en Ecuador. Equipos probados y con garantía real.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-col__title">Catálogo</h3>
+                <ul class="footer-links">
+                    <li><a href="#servicios">Consolas de Videojuegos</a></li>
+                    <li><a href="#servicios">Televisores Gamer</a></li>
+                    <li><a href="#servicios">Teléfonos Celulares</a></li>
+                    <li><a href="#servicios">Alquiler de Juegos</a></li>
+                    <li><a href="#nosotros">Garantía</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-col__title">Contacto Directo</h3>
+                <ul class="footer-contact">
+                    <li>
+                        <a href="tel:+593980373345" class="footer-contact__link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="footer-contact__icon">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            +593 98 037 3345
+                        </a>
+                    </li>
+                    <li class="footer-contact__text">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="footer-contact__icon">
+                            <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0Z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Atención y envíos asegurados a todo Ecuador
+                    </li>
+                    <li class="footer-contact__text">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="footer-contact__icon">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <path d="M12 7v5l3 3"></path>
+                        </svg>
+                        Lunes a Sábado: 9:00 AM - 7:00 PM
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-col__title">Síguenos</h3>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/bendicion_de_dios_ecu?igsh=MW1qaHBnOWE2cHJ2YQ==" rel="nofollow noopener" target="_blank" aria-label="Instagram" class="footer-social__btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+                    </a>
+                    <a href="https://wa.me/593980373345" rel="nofollow noopener" target="_blank" aria-label="WhatsApp" class="footer-social__btn footer-social__btn--whatsapp">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.386.696 4.607 1.897 6.48L4 29l7.72-1.86A11.93 11.93 0 0 0 16.001 27C22.629 27 28 21.627 28 15S22.629 3 16.001 3zm0 21.75c-1.964 0-3.79-.57-5.33-1.55l-.383-.24-4.58 1.1 1.12-4.46-.25-.4A9.7 9.7 0 0 1 5.25 15c0-5.936 4.815-10.75 10.75-10.75S26.75 9.064 26.75 15 21.936 24.75 16.001 24.75zm5.68-8.1c-.31-.155-1.833-.905-2.117-1.008-.283-.104-.49-.155-.696.155-.207.31-.797 1.008-.977 1.215-.18.207-.36.233-.67.078-.31-.155-1.31-.483-2.494-1.54-.922-.822-1.545-1.837-1.726-2.147-.18-.31-.02-.478.136-.632.14-.14.31-.36.465-.54.155-.18.207-.31.31-.516.104-.207.052-.387-.026-.542-.078-.155-.696-1.68-.955-2.3-.252-.605-.508-.523-.696-.533l-.593-.01c-.207 0-.542.078-.826.387-.283.31-1.08 1.056-1.08 2.575 0 1.52 1.106 2.988 1.26 3.194.155.207 2.176 3.32 5.27 4.657.737.318 1.312.508 1.76.65.74.235 1.412.202 1.944.123.593-.088 1.833-.75 2.09-1.474.258-.723.258-1.343.18-1.474-.077-.13-.283-.207-.593-.362z"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="site-footer-new__bottom">
+            <p>© 2026 La Bendición de Dios / Bigtest Móvil. Todos los derechos reservados. Compra, venta y alquiler de electrónica usada en Ecuador.</p>
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
